@@ -88,7 +88,7 @@ func NewDecoder(r interface{}) (Decoder, string, error) {
 	case io.Reader:
 		rr = asReader(t)
 	case io.ReadSeeker:
-		rr = asReader(io.Reader(t))
+		rr = asReader(t)
 	default:
 		panic("NewDecoder(): Invalid reader type; must be io.Reader or io.ReadSeeker!")
 	}
