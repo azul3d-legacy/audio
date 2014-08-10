@@ -32,7 +32,7 @@ var formats []format
 //
 // newDecoder is the function that returns either [Decoder, nil] or
 // [nil, ErrInvalidData] upon being called where the returned decoder is used
-// to decode the encoded io.Reader or io.ReadSeeker's encoded audio data.
+// to decode the io.Reader or io.ReadSeeker's encoded audio data.
 func RegisterFormat(name, magic string, newDecoder func(r interface{}) (Decoder, error)) {
 	formats = append(formats, format{name, magic, newDecoder})
 }

@@ -13,8 +13,8 @@ import (
 // or corrupted for some reason.
 var ErrInvalidData = errors.New("audio: input data is invalid or corrupt")
 
-// Config represents an audio stream's configuration, like it's sample rate
-// and number of interleaved channels.
+// Config represents an audio stream's configuration, like its sample rate and
+// number of interleaved channels.
 type Config struct {
 	// SampleRate is the number of audio samples that the stream is played or
 	// recorded at.
