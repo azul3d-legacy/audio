@@ -31,6 +31,19 @@ func (c Config) String() string {
 	return fmt.Sprintf("Config(SampleRate=%v, Channels=%v)", c.SampleRate, c.Channels)
 }
 
+// Encoder is the generic audio encoder interface.
+type Encoder interface {
+	Writer
+
+	// Close closes the audio encoder, and finalizes the encoding process.
+	// It must be called or else the encoding process may not finish, and
+	// the encoded data may be uncomplete.
+	//
+	// Writing data to a closed encoder causes an encoder-specific behavior
+	// but most often a panic will occur.
+	Close() error
+}
+
 // Decoder is the generic audio decoder interface, for use with the
 // RegisterFormat() function.
 type Decoder interface {
