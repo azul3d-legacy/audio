@@ -5,11 +5,11 @@
 package audio
 
 type (
-	// F32 represents an 32-bit floating-point linear audio sample in the range
+	// F32 represents a 32-bit floating-point linear audio sample in the range
 	// of -1 to +1.
 	F32 float32
 
-	// F32Samples represents an slice of F32 encoded audio samples.
+	// F32Samples represents a slice of F32 encoded audio samples.
 	F32Samples []F32
 )
 
@@ -53,11 +53,11 @@ func (p F32Samples) CopyTo(dst Slice) int {
 }
 
 type (
-	// F64 represents an 64-bit floating-point linear audio sample in the range
+	// F64 represents a 64-bit floating-point linear audio sample in the range
 	// of -1 to +1.
 	F64 float64
 
-	// F32Samples represents an slice of F32 encoded audio samples.
+	// F32Samples represents a slice of F32 encoded audio samples.
 	F64Samples []F64
 )
 

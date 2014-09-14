@@ -29,7 +29,7 @@ type Reader interface {
 	// b.Len() audio samples.
 	//
 	// Returned is the number of samples that where read into the slice, and
-	// an error if any occured.
+	// an error if any occurred.
 	//
 	// It is possible for the number of samples read to be non-zero; and for an
 	// error to be returned at the same time (E.g. read 300 audio samples, but

@@ -12,7 +12,7 @@ type (
 	// PCM8 represents an unsigned 8-bit linear PCM audio sample.
 	PCM8 uint8
 
-	// PCM6Samples represents an slice of PCM8 encoded audio samples.
+	// PCM6Samples represents a slice of PCM8 encoded audio samples.
 	PCM8Samples []PCM8
 )
 
@@ -75,10 +75,10 @@ func (p PCM8Samples) CopyTo(dst Slice) int {
 }
 
 type (
-	// PCM16 represents an signed 16-bit linear PCM audio sample.
+	// PCM16 represents a signed 16-bit linear PCM audio sample.
 	PCM16 int16
 
-	// PCM16Samples represents an slice of PCM16 encoded audio samples.
+	// PCM16Samples represents a slice of PCM16 encoded audio samples.
 	PCM16Samples []PCM16
 )
 
@@ -132,10 +132,10 @@ func (p PCM16Samples) CopyTo(dst Slice) int {
 }
 
 type (
-	// PCM32 represents an signed 32-bit linear PCM audio sample.
+	// PCM32 represents a signed 32-bit linear PCM audio sample.
 	PCM32 int32
 
-	// PCM32Samples represents an slice of PCM32 encoded audio samples.
+	// PCM32Samples represents a slice of PCM32 encoded audio samples.
 	PCM32Samples []PCM32
 )
 
