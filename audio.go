@@ -9,7 +9,7 @@ import (
 	"fmt"
 )
 
-// ErrInvalidData represents an error for decoding input data that is invalidd
+// ErrInvalidData represents an error for decoding input data that is invalid
 // or corrupted for some reason.
 var ErrInvalidData = errors.New("audio: input data is invalid or corrupt")
 
@@ -36,10 +36,10 @@ type Encoder interface {
 	Writer
 
 	// Close closes the audio encoder, and finalizes the encoding process.
-	// It must be called or else the encoding process may not finish, and
-	// the encoded data may be uncomplete.
+	// It must be called, or else the encoding process may not finish, and
+	// the encoded data may be incomplete.
 	//
-	// Writing data to a closed encoder causes an encoder-specific behavior
+	// Writing data to a closed encoder causes an encoder-specific behavior,
 	// but most often a panic will occur.
 	Close() error
 }

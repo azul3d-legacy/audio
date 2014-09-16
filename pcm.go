@@ -12,7 +12,7 @@ type (
 	// PCM8 represents an unsigned 8-bit linear PCM audio sample.
 	PCM8 uint8
 
-	// PCM6Samples represents a slice of PCM8 encoded audio samples.
+	// PCM8Samples represents a slice of PCM8 encoded audio samples.
 	PCM8Samples []PCM8
 )
 

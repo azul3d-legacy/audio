@@ -18,14 +18,14 @@ package audio
 type Slice interface {
 	// Len returns the number of elements in the slice.
 	//
-	// Equivilent slice syntax:
+	// Equivalent slice syntax:
 	//
 	//  len(b)
 	Len() int
 
 	// Cap returns the number of elements in the slice.
 	//
-	// Equivilent slice syntax:
+	// Equivalent slice syntax:
 	//
 	//  cap(b)
 	Cap() int
@@ -40,7 +40,7 @@ type Slice interface {
 	// Just like slices, slice indices must be non-negative; and no greater
 	// than (Len() - 1), or else a panic may occur.
 	//
-	// Equivilent slice syntax:
+	// Equivalent slice syntax:
 	//
 	//  b[index] = s
 	//   -> b.Set(index, s)
@@ -56,7 +56,7 @@ type Slice interface {
 	// Just like slices, slice indices must be non-negative; and no greater
 	// than (Len() - 1), or else a panic may occur.
 	//
-	// Equivilent slice syntax:
+	// Equivalent slice syntax:
 	//
 	//  b[index]
 	//   -> b.At(index)
@@ -66,7 +66,7 @@ type Slice interface {
 	// Slice returns a new slice of the slice, using the low and high
 	// parameters.
 	//
-	// Equivilent slice syntax:
+	// Equivalent slice syntax:
 	//
 	//  b[low:high]
 	//   -> b.Slice(low, high)
@@ -94,7 +94,7 @@ type Slice interface {
 	Make(length, capacity int) Slice
 
 	// CopyTo operates exactly like the copy builtin, but this slice is always
-	// the source operand. Equivilent slice syntax:
+	// the source operand. Equivalent slice syntax:
 	//
 	//  copy(dst, src)
 	//   -> src.CopyTo(dst)
