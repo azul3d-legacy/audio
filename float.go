@@ -57,7 +57,7 @@ type (
 	// of -1 to +1.
 	F64 float64
 
-	// F32Samples represents a slice of F32 encoded audio samples.
+	// F64Samples represents a slice of F64 encoded audio samples.
 	F64Samples []F64
 )
 

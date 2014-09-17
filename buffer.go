@@ -13,7 +13,7 @@ type Buffer struct {
 
 // Samples returns a slice of the unread portion of the buffer. If the caller
 // changes the contents of the returned slice, the contents of the buffer will
-// change provided there are no intervening method calls on the Buffer.
+// change, provided there are no intervening method calls on the Buffer.
 func (b *Buffer) Samples() Slice {
 	return b.buf.Slice(b.off, b.buf.Len())
 }
