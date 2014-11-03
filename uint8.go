@@ -18,49 +18,49 @@ func Uint8ToFloat64(s uint8) float64 {
 
 	// Switch to -1 to +1 range
 	f *= 2
-	f -= 1
+	f--
 	return f
 }
 
 // Float64ToUint8 converts a Float64 encoded audio sample to Uint8.
 func Float64ToUint8(s float64) uint8 {
 	// In -1 to +1 range, switch to 0 to 1
-	s += 1
+	s++
 	s /= 2
 	return uint8(math.Floor(float64((s * float64(math.MaxUint8)) + 0.5)))
 }
 
-// Implements Slice interface.
+// Len implements the Slice interface.
 func (p Uint8) Len() int {
 	return len(p)
 }
 
-// Implements Slice interface.
+// Cap implements the Slice interface.
 func (p Uint8) Cap() int {
 	return cap(p)
 }
 
-// Implements Slice interface.
+// At implements the Slice interface.
 func (p Uint8) At(i int) float64 {
 	return Uint8ToFloat64(p[i])
 }
 
-// Implements Slice interface.
+// Set implements the Slice interface.
 func (p Uint8) Set(i int, s float64) {
 	p[i] = Float64ToUint8(s)
 }
 
-// Implements Slice interface.
+// Slice implements the Slice interface.
 func (p Uint8) Slice(low, high int) Slice {
 	return p[low:high]
 }
 
-// Implements Slice interface.
+// Make implements the Slice interface.
 func (p Uint8) Make(length, capacity int) Slice {
 	return make(Uint8, length, capacity)
 }
 
-// Implements Slice interface.
+// CopyTo implements the Slice interface.
 func (p Uint8) CopyTo(dst Slice) int {
 	d, ok := dst.(Uint8)
 	if ok {

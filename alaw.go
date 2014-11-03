@@ -11,39 +11,39 @@ import (
 // ALaw represents a slice of ALaw encoded audio samples.
 type ALaw []uint8
 
-// Implements Slice interface.
+// Len implements the Slice interface.
 func (p ALaw) Len() int {
 	return len(p)
 }
 
-// Implements Slice interface.
+// Cap implements the Slice interface.
 func (p ALaw) Cap() int {
 	return cap(p)
 }
 
-// Implements Slice interface.
+// At implements the Slice interface.
 func (p ALaw) At(i int) float64 {
 	p16 := ALawToInt16(p[i])
 	return float64(p16) / float64(math.MaxInt16)
 }
 
-// Implements Slice interface.
+// Set implements the Slice interface.
 func (p ALaw) Set(i int, s float64) {
 	p16 := Float64ToInt16(s)
 	p[i] = Int16ToALaw(p16)
 }
 
-// Implements Slice interface.
+// Slice implements the Slice interface.
 func (p ALaw) Slice(low, high int) Slice {
 	return p[low:high]
 }
 
-// Implements Slice interface.
+// Make implements the Slice interface.
 func (p ALaw) Make(length, capacity int) Slice {
 	return make(ALaw, length, capacity)
 }
 
-// Implements Slice interface.
+// CopyTo implements the Slice interface.
 func (p ALaw) CopyTo(dst Slice) int {
 	d, ok := dst.(ALaw)
 	if ok {

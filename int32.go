@@ -21,37 +21,37 @@ func Float64ToInt32(s float64) int32 {
 	return int32(math.Floor(float64((s * float64(math.MaxInt32)) + 0.5)))
 }
 
-// Implements Slice interface.
+// Len implements the Slice interface.
 func (p Int32) Len() int {
 	return len(p)
 }
 
-// Implements Slice interface.
+// Cap implements the Slice interface.
 func (p Int32) Cap() int {
 	return cap(p)
 }
 
-// Implements Slice interface.
+// At implements the Slice interface.
 func (p Int32) At(i int) float64 {
 	return Int32ToFloat64(p[i])
 }
 
-// Implements Slice interface.
+// Set implements the Slice interface.
 func (p Int32) Set(i int, s float64) {
 	p[i] = Float64ToInt32(s)
 }
 
-// Implements Slice interface.
+// Slice implements the Slice interface.
 func (p Int32) Slice(low, high int) Slice {
 	return p[low:high]
 }
 
-// Implements Slice interface.
+// Make implements the Slice interface.
 func (p Int32) Make(length, capacity int) Slice {
 	return make(Int32, length, capacity)
 }
 
-// Implements Slice interface.
+// CopyTo implements the Slice interface.
 func (p Int32) CopyTo(dst Slice) int {
 	d, ok := dst.(Int32)
 	if ok {

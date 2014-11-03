@@ -11,39 +11,39 @@ import (
 // MuLaw represents a slice of MuLaw encoded audio samples.
 type MuLaw []uint8
 
-// Implements Slice interface.
+// Len implements the Slice interface.
 func (p MuLaw) Len() int {
 	return len(p)
 }
 
-// Implements Slice interface.
+// Cap implements the Slice interface.
 func (p MuLaw) Cap() int {
 	return cap(p)
 }
 
-// Implements Slice interface.
+// At implements the Slice interface.
 func (p MuLaw) At(i int) float64 {
 	p16 := MuLawToInt16(p[i])
 	return float64(p16) / float64(math.MaxInt16)
 }
 
-// Implements Slice interface.
+// Set implements the Slice interface.
 func (p MuLaw) Set(i int, s float64) {
 	p16 := Float64ToInt16(s)
 	p[i] = Int16ToMuLaw(p16)
 }
 
-// Implements Slice interface.
+// Slice implements the Slice interface.
 func (p MuLaw) Slice(low, high int) Slice {
 	return p[low:high]
 }
 
-// Implements Slice interface.
+// Make implements the Slice interface.
 func (p MuLaw) Make(length, capacity int) Slice {
 	return make(MuLaw, length, capacity)
 }
 
-// Implements Slice interface.
+// CopyTo implements the Slice interface.
 func (p MuLaw) CopyTo(dst Slice) int {
 	d, ok := dst.(MuLaw)
 	if ok {
