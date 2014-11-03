@@ -148,7 +148,7 @@ func (b *Buffer) WriteTo(w Writer) (n int64, err error) {
 }
 
 // WriteSample appends the sample c to the buffer, growing the buffer as needed.
-func (b *Buffer) WriteSample(c F64) {
+func (b *Buffer) WriteSample(c float64) {
 	m := b.grow(1)
 	b.buf.Set(m, c)
 }
@@ -187,7 +187,7 @@ func (b *Buffer) Next(n int) Slice {
 
 // ReadSample reads and returns the next sample from the buffer.
 // If no sample is available, it returns error EOS.
-func (b *Buffer) ReadSample() (c F64, err error) {
+func (b *Buffer) ReadSample() (c float64, err error) {
 	if b.off >= b.buf.Len() {
 		// Buffer is empty, reset to recover space.
 		b.Truncate(0)

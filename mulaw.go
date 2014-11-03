@@ -27,14 +27,14 @@ func (p MuLawSamples) Cap() int {
 }
 
 // Implements Slice interface.
-func (p MuLawSamples) At(i int) F64 {
+func (p MuLawSamples) At(i int) float64 {
 	p16 := MuLawToPCM16(p[i])
-	return F64(p16) / F64(math.MaxInt16)
+	return float64(p16) / float64(math.MaxInt16)
 }
 
 // Implements Slice interface.
-func (p MuLawSamples) Set(i int, s F64) {
-	p16 := F64ToPCM16(s)
+func (p MuLawSamples) Set(i int, s float64) {
+	p16 := Float64ToPCM16(s)
 	p[i] = PCM16ToMuLaw(p16)
 }
 

@@ -27,14 +27,14 @@ func (p ALawSamples) Cap() int {
 }
 
 // Implements Slice interface.
-func (p ALawSamples) At(i int) F64 {
+func (p ALawSamples) At(i int) float64 {
 	p16 := ALawToPCM16(p[i])
-	return F64(p16) / F64(math.MaxInt16)
+	return float64(p16) / float64(math.MaxInt16)
 }
 
 // Implements Slice interface.
-func (p ALawSamples) Set(i int, s F64) {
-	p16 := F64ToPCM16(s)
+func (p ALawSamples) Set(i int, s float64) {
+	p16 := Float64ToPCM16(s)
 	p[i] = PCM16ToALaw(p16)
 }
 

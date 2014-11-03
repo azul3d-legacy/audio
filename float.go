@@ -4,96 +4,86 @@
 
 package audio
 
-type (
-	// F32 represents a 32-bit floating-point linear audio sample in the range
-	// of -1 to +1.
-	F32 float32
-
-	// F32Samples represents a slice of F32 encoded audio samples.
-	F32Samples []F32
-)
+// Float32 represents a slice of 32-bit floating-point linear PCM encoded
+// audio samples, in the range of -1 to +1.
+type Float32 []float32
 
 // Implements Slice interface.
-func (p F32Samples) Len() int {
+func (p Float32) Len() int {
 	return len(p)
 }
 
 // Implements Slice interface.
-func (p F32Samples) Cap() int {
+func (p Float32) Cap() int {
 	return cap(p)
 }
 
 // Implements Slice interface.
-func (p F32Samples) At(i int) F64 {
-	return F64(p[i])
+func (p Float32) At(i int) float64 {
+	return float64(p[i])
 }
 
 // Implements Slice interface.
-func (p F32Samples) Set(i int, s F64) {
-	p[i] = F32(s)
+func (p Float32) Set(i int, s float64) {
+	p[i] = float32(s)
 }
 
 // Implements Slice interface.
-func (p F32Samples) Slice(low, high int) Slice {
+func (p Float32) Slice(low, high int) Slice {
 	return p[low:high]
 }
 
 // Implements Slice interface.
-func (p F32Samples) Make(length, capacity int) Slice {
-	return make(F32Samples, length, capacity)
+func (p Float32) Make(length, capacity int) Slice {
+	return make(Float32, length, capacity)
 }
 
 // Implements Slice interface.
-func (p F32Samples) CopyTo(dst Slice) int {
-	d, ok := dst.(F32Samples)
+func (p Float32) CopyTo(dst Slice) int {
+	d, ok := dst.(Float32)
 	if ok {
 		return copy(d, p)
 	}
 	return sliceCopy(dst, p)
 }
 
-type (
-	// F64 represents a 64-bit floating-point linear audio sample in the range
-	// of -1 to +1.
-	F64 float64
-
-	// F64Samples represents a slice of F64 encoded audio samples.
-	F64Samples []F64
-)
+// Float64 represents a slice of 64-bit floating-point linear PCM encoded
+// audio samples, in the range of -1 to +1.
+type Float64 []float64
 
 // Implements Slice interface.
-func (p F64Samples) Len() int {
+func (p Float64) Len() int {
 	return len(p)
 }
 
 // Implements Slice interface.
-func (p F64Samples) Cap() int {
+func (p Float64) Cap() int {
 	return cap(p)
 }
 
 // Implements Slice interface.
-func (p F64Samples) At(i int) F64 {
+func (p Float64) At(i int) float64 {
 	return p[i]
 }
 
 // Implements Slice interface.
-func (p F64Samples) Set(i int, s F64) {
+func (p Float64) Set(i int, s float64) {
 	p[i] = s
 }
 
 // Implements Slice interface.
-func (p F64Samples) Slice(low, high int) Slice {
+func (p Float64) Slice(low, high int) Slice {
 	return p[low:high]
 }
 
 // Implements Slice interface.
-func (p F64Samples) Make(length, capacity int) Slice {
-	return make(F64Samples, length, capacity)
+func (p Float64) Make(length, capacity int) Slice {
+	return make(Float64, length, capacity)
 }
 
 // Implements Slice interface.
-func (p F64Samples) CopyTo(dst Slice) int {
-	d, ok := dst.(F64Samples)
+func (p Float64) CopyTo(dst Slice) int {
+	d, ok := dst.(Float64)
 	if ok {
 		return copy(d, p)
 	}

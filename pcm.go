@@ -16,10 +16,10 @@ type (
 	PCM8Samples []PCM8
 )
 
-// PCM8ToF64 converts a PCM8 encoded audio sample to F64.
-func PCM8ToF64(s PCM8) F64 {
+// PCM8ToFloat64 converts a PCM8 encoded audio sample to Float64.
+func PCM8ToFloat64(s PCM8) float64 {
 	// In 0 to 1 range
-	f := F64(s) / F64(math.MaxUint8)
+	f := float64(s) / float64(math.MaxUint8)
 
 	// Switch to -1 to +1 range
 	f *= 2
@@ -27,12 +27,12 @@ func PCM8ToF64(s PCM8) F64 {
 	return f
 }
 
-// F64ToPCM8 converts a F64 encoded audio sample to PCM8.
-func F64ToPCM8(s F64) PCM8 {
+// Float64ToPCM8 converts a Float64 encoded audio sample to PCM8.
+func Float64ToPCM8(s float64) PCM8 {
 	// In -1 to +1 range, switch to 0 to 1
 	s += 1
 	s /= 2
-	return PCM8(math.Floor(float64((s * F64(math.MaxUint8)) + 0.5)))
+	return PCM8(math.Floor(float64((s * float64(math.MaxUint8)) + 0.5)))
 }
 
 // Implements Slice interface.
@@ -46,13 +46,13 @@ func (p PCM8Samples) Cap() int {
 }
 
 // Implements Slice interface.
-func (p PCM8Samples) At(i int) F64 {
-	return PCM8ToF64(p[i])
+func (p PCM8Samples) At(i int) float64 {
+	return PCM8ToFloat64(p[i])
 }
 
 // Implements Slice interface.
-func (p PCM8Samples) Set(i int, s F64) {
-	p[i] = F64ToPCM8(s)
+func (p PCM8Samples) Set(i int, s float64) {
+	p[i] = Float64ToPCM8(s)
 }
 
 // Implements Slice interface.
@@ -82,14 +82,14 @@ type (
 	PCM16Samples []PCM16
 )
 
-// PCM16ToF64 converts a PCM16 encoded audio sample to F64.
-func PCM16ToF64(s PCM16) F64 {
-	return F64(s) / F64(math.MaxInt16)
+// PCM16ToFloat64 converts a PCM16 encoded audio sample to Float64.
+func PCM16ToFloat64(s PCM16) float64 {
+	return float64(s) / float64(math.MaxInt16)
 }
 
-// F64ToPCM16 converts a F64 encoded audio sample to PCM16.
-func F64ToPCM16(s F64) PCM16 {
-	return PCM16(math.Floor(float64((s * F64(math.MaxInt16)) + 0.5)))
+// Float64ToPCM16 converts a Float64 encoded audio sample to PCM16.
+func Float64ToPCM16(s float64) PCM16 {
+	return PCM16(math.Floor(float64((s * float64(math.MaxInt16)) + 0.5)))
 }
 
 // Implements Slice interface.
@@ -103,13 +103,13 @@ func (p PCM16Samples) Cap() int {
 }
 
 // Implements Slice interface.
-func (p PCM16Samples) At(i int) F64 {
-	return PCM16ToF64(p[i])
+func (p PCM16Samples) At(i int) float64 {
+	return PCM16ToFloat64(p[i])
 }
 
 // Implements Slice interface.
-func (p PCM16Samples) Set(i int, s F64) {
-	p[i] = F64ToPCM16(s)
+func (p PCM16Samples) Set(i int, s float64) {
+	p[i] = Float64ToPCM16(s)
 }
 
 // Implements Slice interface.
@@ -139,14 +139,14 @@ type (
 	PCM32Samples []PCM32
 )
 
-// PCM32ToF64 converts a PCM32 encoded audio sample to F64.
-func PCM32ToF64(s PCM32) F64 {
-	return F64(s) / F64(math.MaxInt32)
+// PCM32ToFloat64 converts a PCM32 encoded audio sample to Float64.
+func PCM32ToFloat64(s PCM32) float64 {
+	return float64(s) / float64(math.MaxInt32)
 }
 
-// F64ToPCM32 converts a F64 encoded audio sample to PCM32.
-func F64ToPCM32(s F64) PCM32 {
-	return PCM32(math.Floor(float64((s * F64(math.MaxInt32)) + 0.5)))
+// Float64ToPCM32 converts a Float64 encoded audio sample to PCM32.
+func Float64ToPCM32(s float64) PCM32 {
+	return PCM32(math.Floor(float64((s * float64(math.MaxInt32)) + 0.5)))
 }
 
 // Implements Slice interface.
@@ -160,13 +160,13 @@ func (p PCM32Samples) Cap() int {
 }
 
 // Implements Slice interface.
-func (p PCM32Samples) At(i int) F64 {
-	return PCM32ToF64(p[i])
+func (p PCM32Samples) At(i int) float64 {
+	return PCM32ToFloat64(p[i])
 }
 
 // Implements Slice interface.
-func (p PCM32Samples) Set(i int, s F64) {
-	p[i] = F64ToPCM32(s)
+func (p PCM32Samples) Set(i int, s float64) {
+	p[i] = Float64ToPCM32(s)
 }
 
 // Implements Slice interface.
