@@ -8,11 +8,11 @@ package audio
 // slice of some audio encoding type.
 //
 // Conversion between two encoded audio slices is as simple as:
-//  dst, ok := src.(MuLawSamples)
+//  dst, ok := src.(MuLaw)
 //  if !ok {
 //      // Create a new slice of the target encoding and copy the samples over
 //      // because src is not MuLaw encoded.
-//      dst = make(MuLawSamples, src.Len())
+//      dst = make(MuLaw, src.Len())
 //      src.CopyTo(dst)
 //  }
 type Slice interface {
@@ -89,7 +89,7 @@ type Slice interface {
 	//
 	// It is exactly the same syntax as the make builtin:
 	//
-	//  make(MuLawSamples, len, cap)
+	//  make(MuLaw, len, cap)
 	//
 	// Where cap cannot be less than len.
 	Make(length, capacity int) Slice
