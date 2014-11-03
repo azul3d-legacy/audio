@@ -3,7 +3,7 @@ This package provides a generic audio package for Go. It is very similar to Go's
 
 # Version 2 #
 * Documentation
-  * [azul3d.org/audio.v1](http://azul3d.org/audio.v2)
+  * [azul3d.org/audio.v2](http://azul3d.org/audio.v2)
   * `import "azul3d.org/audio.v2"`
 * Changes
   * Single-sample types were replaced by their direct Go type (see [#6](https://github.com/azul3d/audio/issues/6)):
