@@ -8,16 +8,11 @@ import (
 	"math"
 )
 
-type (
-	// PCM8 represents an unsigned 8-bit linear PCM audio sample.
-	PCM8 uint8
+// Uint8 represents a unsigned 8-bit linear PCM encoded audio sample.
+type Uint8 []uint8
 
-	// PCM8Samples represents a slice of PCM8 encoded audio samples.
-	PCM8Samples []PCM8
-)
-
-// PCM8ToFloat64 converts a PCM8 encoded audio sample to Float64.
-func PCM8ToFloat64(s PCM8) float64 {
+// Uint8ToFloat64 converts a Uint8 encoded audio sample to Float64.
+func Uint8ToFloat64(s uint8) float64 {
 	// In 0 to 1 range
 	f := float64(s) / float64(math.MaxUint8)
 
@@ -27,161 +22,151 @@ func PCM8ToFloat64(s PCM8) float64 {
 	return f
 }
 
-// Float64ToPCM8 converts a Float64 encoded audio sample to PCM8.
-func Float64ToPCM8(s float64) PCM8 {
+// Float64ToUint8 converts a Float64 encoded audio sample to Uint8.
+func Float64ToUint8(s float64) uint8 {
 	// In -1 to +1 range, switch to 0 to 1
 	s += 1
 	s /= 2
-	return PCM8(math.Floor(float64((s * float64(math.MaxUint8)) + 0.5)))
+	return uint8(math.Floor(float64((s * float64(math.MaxUint8)) + 0.5)))
 }
 
 // Implements Slice interface.
-func (p PCM8Samples) Len() int {
+func (p Uint8) Len() int {
 	return len(p)
 }
 
 // Implements Slice interface.
-func (p PCM8Samples) Cap() int {
+func (p Uint8) Cap() int {
 	return cap(p)
 }
 
 // Implements Slice interface.
-func (p PCM8Samples) At(i int) float64 {
-	return PCM8ToFloat64(p[i])
+func (p Uint8) At(i int) float64 {
+	return Uint8ToFloat64(p[i])
 }
 
 // Implements Slice interface.
-func (p PCM8Samples) Set(i int, s float64) {
-	p[i] = Float64ToPCM8(s)
+func (p Uint8) Set(i int, s float64) {
+	p[i] = Float64ToUint8(s)
 }
 
 // Implements Slice interface.
-func (p PCM8Samples) Slice(low, high int) Slice {
+func (p Uint8) Slice(low, high int) Slice {
 	return p[low:high]
 }
 
 // Implements Slice interface.
-func (p PCM8Samples) Make(length, capacity int) Slice {
-	return make(PCM8Samples, length, capacity)
+func (p Uint8) Make(length, capacity int) Slice {
+	return make(Uint8, length, capacity)
 }
 
 // Implements Slice interface.
-func (p PCM8Samples) CopyTo(dst Slice) int {
-	d, ok := dst.(PCM8Samples)
+func (p Uint8) CopyTo(dst Slice) int {
+	d, ok := dst.(Uint8)
 	if ok {
 		return copy(d, p)
 	}
 	return sliceCopy(dst, p)
 }
 
-type (
-	// PCM16 represents a signed 16-bit linear PCM audio sample.
-	PCM16 int16
+// Int16 represents a signed 16-bit linear PCM encoded audio sample.
+type Int16 []int16
 
-	// PCM16Samples represents a slice of PCM16 encoded audio samples.
-	PCM16Samples []PCM16
-)
-
-// PCM16ToFloat64 converts a PCM16 encoded audio sample to Float64.
-func PCM16ToFloat64(s PCM16) float64 {
+// Int16ToFloat64 converts a Int16 encoded audio sample to Float64.
+func Int16ToFloat64(s int16) float64 {
 	return float64(s) / float64(math.MaxInt16)
 }
 
-// Float64ToPCM16 converts a Float64 encoded audio sample to PCM16.
-func Float64ToPCM16(s float64) PCM16 {
-	return PCM16(math.Floor(float64((s * float64(math.MaxInt16)) + 0.5)))
+// Float64ToInt16 converts a Float64 encoded audio sample to Int16.
+func Float64ToInt16(s float64) int16 {
+	return int16(math.Floor(float64((s * float64(math.MaxInt16)) + 0.5)))
 }
 
 // Implements Slice interface.
-func (p PCM16Samples) Len() int {
+func (p Int16) Len() int {
 	return len(p)
 }
 
 // Implements Slice interface.
-func (p PCM16Samples) Cap() int {
+func (p Int16) Cap() int {
 	return cap(p)
 }
 
 // Implements Slice interface.
-func (p PCM16Samples) At(i int) float64 {
-	return PCM16ToFloat64(p[i])
+func (p Int16) At(i int) float64 {
+	return Int16ToFloat64(p[i])
 }
 
 // Implements Slice interface.
-func (p PCM16Samples) Set(i int, s float64) {
-	p[i] = Float64ToPCM16(s)
+func (p Int16) Set(i int, s float64) {
+	p[i] = Float64ToInt16(s)
 }
 
 // Implements Slice interface.
-func (p PCM16Samples) Slice(low, high int) Slice {
+func (p Int16) Slice(low, high int) Slice {
 	return p[low:high]
 }
 
 // Implements Slice interface.
-func (p PCM16Samples) Make(length, capacity int) Slice {
-	return make(PCM16Samples, length, capacity)
+func (p Int16) Make(length, capacity int) Slice {
+	return make(Int16, length, capacity)
 }
 
 // Implements Slice interface.
-func (p PCM16Samples) CopyTo(dst Slice) int {
-	d, ok := dst.(PCM16Samples)
+func (p Int16) CopyTo(dst Slice) int {
+	d, ok := dst.(Int16)
 	if ok {
 		return copy(d, p)
 	}
 	return sliceCopy(dst, p)
 }
 
-type (
-	// PCM32 represents a signed 32-bit linear PCM audio sample.
-	PCM32 int32
+// Int32 represents a signed 32-bit linear PCM encoded audio sample.
+type Int32 []int32
 
-	// PCM32Samples represents a slice of PCM32 encoded audio samples.
-	PCM32Samples []PCM32
-)
-
-// PCM32ToFloat64 converts a PCM32 encoded audio sample to Float64.
-func PCM32ToFloat64(s PCM32) float64 {
+// Int32ToFloat64 converts a Int32 encoded audio sample to Float64.
+func Int32ToFloat64(s int32) float64 {
 	return float64(s) / float64(math.MaxInt32)
 }
 
-// Float64ToPCM32 converts a Float64 encoded audio sample to PCM32.
-func Float64ToPCM32(s float64) PCM32 {
-	return PCM32(math.Floor(float64((s * float64(math.MaxInt32)) + 0.5)))
+// Float64ToInt32 converts a Float64 encoded audio sample to Int32.
+func Float64ToInt32(s float64) int32 {
+	return int32(math.Floor(float64((s * float64(math.MaxInt32)) + 0.5)))
 }
 
 // Implements Slice interface.
-func (p PCM32Samples) Len() int {
+func (p Int32) Len() int {
 	return len(p)
 }
 
 // Implements Slice interface.
-func (p PCM32Samples) Cap() int {
+func (p Int32) Cap() int {
 	return cap(p)
 }
 
 // Implements Slice interface.
-func (p PCM32Samples) At(i int) float64 {
-	return PCM32ToFloat64(p[i])
+func (p Int32) At(i int) float64 {
+	return Int32ToFloat64(p[i])
 }
 
 // Implements Slice interface.
-func (p PCM32Samples) Set(i int, s float64) {
-	p[i] = Float64ToPCM32(s)
+func (p Int32) Set(i int, s float64) {
+	p[i] = Float64ToInt32(s)
 }
 
 // Implements Slice interface.
-func (p PCM32Samples) Slice(low, high int) Slice {
+func (p Int32) Slice(low, high int) Slice {
 	return p[low:high]
 }
 
 // Implements Slice interface.
-func (p PCM32Samples) Make(length, capacity int) Slice {
-	return make(PCM32Samples, length, capacity)
+func (p Int32) Make(length, capacity int) Slice {
+	return make(Int32, length, capacity)
 }
 
 // Implements Slice interface.
-func (p PCM32Samples) CopyTo(dst Slice) int {
-	d, ok := dst.(PCM32Samples)
+func (p Int32) CopyTo(dst Slice) int {
+	d, ok := dst.(Int32)
 	if ok {
 		return copy(d, p)
 	}
