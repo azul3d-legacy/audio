@@ -8,49 +8,44 @@ import (
 	"math"
 )
 
-type (
-	// MuLaw represents an uint8 mulaw encoded audio sample.
-	MuLaw uint8
+// MuLaw represents a slice of MuLaw encoded audio samples.
+type MuLaw []uint8
 
-	// MuLawSamples represents an slice of MuLaw encoded audio samples.
-	MuLawSamples []MuLaw
-)
-
-// Implements Slice interface.
-func (p MuLawSamples) Len() int {
+// Len implements the Slice interface.
+func (p MuLaw) Len() int {
 	return len(p)
 }
 
-// Implements Slice interface.
-func (p MuLawSamples) Cap() int {
+// Cap implements the Slice interface.
+func (p MuLaw) Cap() int {
 	return cap(p)
 }
 
-// Implements Slice interface.
-func (p MuLawSamples) At(i int) F64 {
-	p16 := MuLawToPCM16(p[i])
-	return F64(p16) / F64(math.MaxInt16)
+// At implements the Slice interface.
+func (p MuLaw) At(i int) float64 {
+	p16 := MuLawToInt16(p[i])
+	return float64(p16) / float64(math.MaxInt16)
 }
 
-// Implements Slice interface.
-func (p MuLawSamples) Set(i int, s F64) {
-	p16 := F64ToPCM16(s)
-	p[i] = PCM16ToMuLaw(p16)
+// Set implements the Slice interface.
+func (p MuLaw) Set(i int, s float64) {
+	p16 := Float64ToInt16(s)
+	p[i] = Int16ToMuLaw(p16)
 }
 
-// Implements Slice interface.
-func (p MuLawSamples) Slice(low, high int) Slice {
+// Slice implements the Slice interface.
+func (p MuLaw) Slice(low, high int) Slice {
 	return p[low:high]
 }
 
-// Implements Slice interface.
-func (p MuLawSamples) Make(length, capacity int) Slice {
-	return make(MuLawSamples, length, capacity)
+// Make implements the Slice interface.
+func (p MuLaw) Make(length, capacity int) Slice {
+	return make(MuLaw, length, capacity)
 }
 
-// Implements Slice interface.
-func (p MuLawSamples) CopyTo(dst Slice) int {
-	d, ok := dst.(MuLawSamples)
+// CopyTo implements the Slice interface.
+func (p MuLaw) CopyTo(dst Slice) int {
+	d, ok := dst.(MuLaw)
 	if ok {
 		return copy(d, p)
 	}
@@ -65,7 +60,7 @@ const (
 var (
 	// For explanation see: http://www.threejacks.com/?q=node/176
 
-	muLawCompressTable = [256]PCM8{
+	muLawCompressTable = [256]uint8{
 		0, 0, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3,
 		4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
 		5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5,
@@ -84,7 +79,7 @@ var (
 		7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7,
 	}
 
-	muLawDecompressTable = [256]PCM16{
+	muLawDecompressTable = [256]int16{
 		-32124, -31100, -30076, -29052, -28028, -27004, -25980, -24956,
 		-23932, -22908, -21884, -20860, -19836, -18812, -17788, -16764,
 		-15996, -15484, -14972, -14460, -13948, -13436, -12924, -12412,
@@ -120,9 +115,9 @@ var (
 	}
 )
 
-// PCM16ToMuLaw converts from a PCM16 encoded audio sample to an MuLaw encoded
+// Int16ToMuLaw converts from a Int16 encoded audio sample to an MuLaw encoded
 // audio sample.
-func PCM16ToMuLaw(s PCM16) MuLaw {
+func Int16ToMuLaw(s int16) uint8 {
 	sign := (s >> 8) & 0x80
 	if sign != 0 {
 		s = -s
@@ -133,12 +128,12 @@ func PCM16ToMuLaw(s PCM16) MuLaw {
 	s = s + muLawCBias
 	exponent := muLawCompressTable[(s>>7)&0xFF]
 	mantissa := (s >> (exponent + 3)) & 0x0F
-	compressedByte := ^(sign | (PCM16(exponent) << 4) | mantissa)
-	return MuLaw(compressedByte)
+	compressedByte := ^(sign | (int16(exponent) << 4) | mantissa)
+	return uint8(compressedByte)
 }
 
-// MuLawToPCM16 converts from an MuLaw encoded audio sample to an PCM16 encoded
+// MuLawToInt16 converts from an MuLaw encoded audio sample to an Int16 encoded
 // audio sample.
-func MuLawToPCM16(s MuLaw) PCM16 {
+func MuLawToInt16(s uint8) int16 {
 	return muLawDecompressTable[s]
 }

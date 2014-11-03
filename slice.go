@@ -8,11 +8,11 @@ package audio
 // slice of some audio encoding type.
 //
 // Conversion between two encoded audio slices is as simple as:
-//  dst, ok := src.(MuLawSamples)
+//  dst, ok := src.(MuLaw)
 //  if !ok {
 //      // Create a new slice of the target encoding and copy the samples over
 //      // because src is not MuLaw encoded.
-//      dst = make(MuLawSamples, src.Len())
+//      dst = make(MuLaw, src.Len())
 //      src.CopyTo(dst)
 //  }
 type Slice interface {
@@ -30,11 +30,11 @@ type Slice interface {
 	//  cap(b)
 	Cap() int
 
-	// Set sets the specified index in the slice to the specified F64 encoded
-	// audio sample, s.
+	// Set sets the specified index in the slice to the specified Float64
+	// encoded audio sample, s.
 	//
-	// If the slice's audio samples are not stored in F64 encoding, then the
-	// sample should be converted to the slice's internal format and then
+	// If the slice's audio samples are not stored in Float64 encoding, then
+	// the sample should be converted to the slice's internal format and then
 	// stored.
 	//
 	// Just like slices, slice indices must be non-negative; and no greater
@@ -45,13 +45,14 @@ type Slice interface {
 	//  b[index] = s
 	//   -> b.Set(index, s)
 	//
-	Set(index int, s F64)
+	Set(index int, s float64)
 
-	// At returns the F64 encoded audio sample at the specified index in the
-	// slice.
+	// At returns the Float64 encoded audio sample at the specified index in
+	// the slice.
 	//
-	// If the slice's audio samples are not stored in F64 encoding, then the
-	// sample should be converted to F64 encoding, and subsequently returned.
+	// If the slice's audio samples are not stored in Float64 encoding, then
+	// the sample should be converted to Float64 encoding, and subsequently
+	// returned.
 	//
 	// Just like slices, slice indices must be non-negative; and no greater
 	// than (Len() - 1), or else a panic may occur.
@@ -61,7 +62,7 @@ type Slice interface {
 	//  b[index]
 	//   -> b.At(index)
 	//
-	At(index int) F64
+	At(index int) float64
 
 	// Slice returns a new slice of the slice, using the low and high
 	// parameters.
@@ -88,7 +89,7 @@ type Slice interface {
 	//
 	// It is exactly the same syntax as the make builtin:
 	//
-	//  make(MuLawSamples, len, cap)
+	//  make(MuLaw, len, cap)
 	//
 	// Where cap cannot be less than len.
 	Make(length, capacity int) Slice

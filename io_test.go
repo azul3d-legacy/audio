@@ -7,7 +7,7 @@ package audio
 import "testing"
 
 func TestBufferIO(t *testing.T) {
-	buf := NewBuffer(PCM16Samples{})
+	buf := NewBuffer(Int16{})
 	_ = Reader(buf)
 	_ = ReadSeeker(buf)
 	_ = Writer(buf)

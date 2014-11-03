@@ -110,7 +110,7 @@ func Copy(dst Writer, src Reader) (written int64, err error) {
 	if rt, ok := dst.(ReaderFrom); ok {
 		return rt.ReadFrom(src)
 	}
-	buf := make(F64Samples, (32*1024)/8)
+	buf := make(Float64, (32*1024)/8)
 	for {
 		nr, er := src.Read(buf)
 		if nr > 0 {
