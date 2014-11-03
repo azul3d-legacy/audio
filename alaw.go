@@ -8,49 +8,44 @@ import (
 	"math"
 )
 
-type (
-	// ALaw represents an uint8 alaw encoded audio sample.
-	ALaw uint8
-
-	// ALawSamples represents an slice of ALaw encoded audio samples.
-	ALawSamples []ALaw
-)
+// ALaw represents a slice of ALaw encoded audio samples.
+type ALaw []uint8
 
 // Implements Slice interface.
-func (p ALawSamples) Len() int {
+func (p ALaw) Len() int {
 	return len(p)
 }
 
 // Implements Slice interface.
-func (p ALawSamples) Cap() int {
+func (p ALaw) Cap() int {
 	return cap(p)
 }
 
 // Implements Slice interface.
-func (p ALawSamples) At(i int) F64 {
-	p16 := ALawToPCM16(p[i])
-	return F64(p16) / F64(math.MaxInt16)
+func (p ALaw) At(i int) float64 {
+	p16 := ALawToInt16(p[i])
+	return float64(p16) / float64(math.MaxInt16)
 }
 
 // Implements Slice interface.
-func (p ALawSamples) Set(i int, s F64) {
-	p16 := F64ToPCM16(s)
-	p[i] = PCM16ToALaw(p16)
+func (p ALaw) Set(i int, s float64) {
+	p16 := Float64ToInt16(s)
+	p[i] = Int16ToALaw(p16)
 }
 
 // Implements Slice interface.
-func (p ALawSamples) Slice(low, high int) Slice {
+func (p ALaw) Slice(low, high int) Slice {
 	return p[low:high]
 }
 
 // Implements Slice interface.
-func (p ALawSamples) Make(length, capacity int) Slice {
-	return make(ALawSamples, length, capacity)
+func (p ALaw) Make(length, capacity int) Slice {
+	return make(ALaw, length, capacity)
 }
 
 // Implements Slice interface.
-func (p ALawSamples) CopyTo(dst Slice) int {
-	d, ok := dst.(ALawSamples)
+func (p ALaw) CopyTo(dst Slice) int {
+	d, ok := dst.(ALaw)
 	if ok {
 		return copy(d, p)
 	}
@@ -65,7 +60,7 @@ const (
 var (
 	// For explanation see: http://www.threejacks.com/?q=node/176
 
-	aLawCompressTable = [256]PCM8{
+	aLawCompressTable = [256]uint8{
 		1, 1, 2, 2, 3, 3, 3, 3,
 		4, 4, 4, 4, 4, 4, 4, 4,
 		5, 5, 5, 5, 5, 5, 5, 5,
@@ -84,7 +79,7 @@ var (
 		7, 7, 7, 7, 7, 7, 7, 7,
 	}
 
-	aLawDecompressTable = [256]PCM16{
+	aLawDecompressTable = [256]int16{
 		-5504, -5248, -6016, -5760, -4480, -4224, -4992, -4736,
 		-7552, -7296, -8064, -7808, -6528, -6272, -7040, -6784,
 		-2752, -2624, -3008, -2880, -2240, -2112, -2496, -2368,
@@ -120,9 +115,9 @@ var (
 	}
 )
 
-// PCM16ToALaw converts an PCM16 encoded audio sample to an ALaw encoded audio
+// Int16ToALaw converts an Int16 encoded audio sample to an ALaw encoded audio
 // sample.
-func PCM16ToALaw(s PCM16) ALaw {
+func Int16ToALaw(s int16) uint8 {
 	sign := ((^s) >> 8) & 0x80
 	if sign == 0 {
 		s = -s
@@ -130,20 +125,20 @@ func PCM16ToALaw(s PCM16) ALaw {
 	if s > alawCClip {
 		s = alawCClip
 	}
-	var compressedByte ALaw
+	var compressedByte uint8
 	if s >= 256 {
 		exponent := aLawCompressTable[(s>>8)&0x7F]
 		mantissa := (s >> (exponent + 3)) & 0x0F
-		compressedByte = ALaw(((PCM16(exponent) << 4) | mantissa))
+		compressedByte = uint8(((int16(exponent) << 4) | mantissa))
 	} else {
-		compressedByte = ALaw(s >> 4)
+		compressedByte = uint8(s >> 4)
 	}
-	compressedByte ^= ALaw(sign ^ 0x55)
+	compressedByte ^= uint8(sign ^ 0x55)
 	return compressedByte
 }
 
-// ALawToPCM16 converts an ALaw encoded audio sample to an PCM16 encoded audio
+// ALawToInt16 converts an ALaw encoded audio sample to an Int16 encoded audio
 // sample.
-func ALawToPCM16(s ALaw) PCM16 {
+func ALawToInt16(s uint8) int16 {
 	return aLawDecompressTable[s]
 }
