@@ -24,11 +24,14 @@ type Config struct {
 
 	// Channels is the number of channels the stream contains.
 	Channels int
+
+	// Bits per sample.
+	BPS int
 }
 
 // String returns an string representation of this audio config.
 func (c Config) String() string {
-	return fmt.Sprintf("Config(SampleRate=%v, Channels=%v)", c.SampleRate, c.Channels)
+	return fmt.Sprintf("Config(SampleRate=%v, Channels=%v, BPS=%v)", c.SampleRate, c.Channels, c.BPS)
 }
 
 // Encoder is the generic audio encoder interface.
